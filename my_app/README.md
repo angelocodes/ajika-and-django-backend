@@ -1,0 +1,1 @@
+In this beginner django project, i explore views, static and dynamic urls
