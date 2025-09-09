@@ -1,0 +1,11 @@
+{% extends 'movies/_base.html' %}
+<html>
+    <body>
+        {% block content %}
+        <p>I am Angelo, a dev and movie fan. I prefer watching superhero and scifi movies. This site lists some of the movies I am watching.</p>
+        {% load static %}
+        <img style="width: 100px;" src="{% static 'movies/nano-banana.jpg' %}" alt="Angelo Movie">
+        {% endblock %}
+        
+    </body>
+</html>
