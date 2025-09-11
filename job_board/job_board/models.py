@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 # model => python class
@@ -11,7 +12,8 @@ class JobPosting(models.Model):
     description = models.TextField()
     company = models.CharField(max_length=100)
     salary = models.IntegerField()
-
+    deadline = models.DateField(default=datetime.date.today)
+    is_active = models.BooleanField(default=False)
 
 # makemigrations => create instructions telling django how the db has changed
 # migrate => apply the migration file to the database ie apply the above changes
