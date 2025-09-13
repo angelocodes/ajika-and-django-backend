@@ -15,6 +15,9 @@ class JobPosting(models.Model):
     deadline = models.DateField(default=datetime.date.today)
     is_active = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.title} | {self.company} | {self.is_active}"
+
 # makemigrations => create instructions telling django how the db has changed
 # migrate => apply the migration file to the database ie apply the above changes
 
