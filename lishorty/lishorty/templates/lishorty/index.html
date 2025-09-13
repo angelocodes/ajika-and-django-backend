@@ -1,0 +1,43 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="text-center mb-8">
+    <h1 class="text-4xl font-extrabold text-indigo-700">LiShorty - My Link Shortener</h1>
+    <p class="text-gray-600 mt-2">Save, share, and track your shortened links with ease.</p>
+</div>
+
+<hr class="mb-6 border-gray-300">
+
+{% if links %}
+    <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for link in links %}
+            <li class="bg-white shadow rounded-lg p-6 hover:shadow-xl transition">
+                <h2 class="text-lg font-semibold text-gray-800">{{ link.name }}</h2>
+
+                <!-- Original URL -->
+                <a href="{{ link.url }}" target="_blank" 
+                   class="block mt-2 text-blue-600 hover:underline break-all">
+                    {{ link.url }}
+                </a>
+
+                <!-- Shortened Slug URL -->
+                <a target="_blank" href="{% url 'root-link' link.slug %}" target="_blank" 
+                   class="block mt-2 text-indigo-600 hover:underline font-medium">
+                   Open: {{ link.slug }}
+                   {% comment %}  
+                     {{ request.get_host }}/go/{{ link.slug }}
+                   {% endcomment %}
+                </a>
+
+                <p class="text-sm text-gray-500 mt-3">Clicks: 
+                    <span class="font-medium">{{ link.clicks }}</span>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <div class="text-center bg-white shadow-md rounded-xl p-10">
+        <p class="text-gray-500 text-lg">No links available. Start by creating one!</p>
+    </div>
+{% endif %}
+{% endblock %}
