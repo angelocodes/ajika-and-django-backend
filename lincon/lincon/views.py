@@ -33,6 +33,13 @@ class LinkCreateView(CreateView):
     model = Link
     fields = ['text', 'url']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slug = self.kwargs.get('slug')
+        if slug:
+            context['profile'] = get_object_or_404(Profile, slug=slug)
+        return context
+
     def form_valid(self, form):
         slug = self.kwargs.get('slug')
         profile = get_object_or_404(Profile, slug=slug)
@@ -47,12 +54,23 @@ class LinkUpdateView(UpdateView):
     model = Link
     fields = ['text', 'url']
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.object.profile
+        return context
+
     def get_success_url(self):
         return reverse_lazy('link-list', kwargs={'slug': self.object.profile.slug})
 
 class LinkDeleteView(DeleteView):
     model = Link
     #expects a template called model_confirm_delete.html -> link_confirm_delete.html
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.object.profile
+        return context
+
     def get_success_url(self):
         return reverse_lazy('link-list', kwargs={'slug': self.object.profile.slug})
 
