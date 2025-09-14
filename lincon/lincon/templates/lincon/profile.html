@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} | LinCon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        .animate-pulse-slow {
+            animation: pulse 2s infinite;
+        }
+        .link-card {
+            transition: all 0.3s ease;
+        }
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 min-h-screen">
+
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-black bg-opacity-10">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 0%, transparent 50%);"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+
+        <!-- Profile Card -->
+        <div class="bg-white bg-opacity-95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 max-w-md w-full animate-fade-in-up">
+
+            <!-- Profile Header -->
+            <div class="text-center mb-8">
+                <!-- Avatar -->
+                <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg animate-pulse-slow"
+                     style="background-color: {{ profile.bg_color }};">
+                    {{ profile.name|slice:":1"|upper }}
+                </div>
+
+                <!-- Name -->
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ profile.name }}</h1>
+
+                <!-- Username -->
+                <p class="text-gray-600 text-lg">@{{ profile.slug }}</p>
+
+                <!-- Bio/Description -->
+                <p class="text-gray-500 mt-4 text-sm">Welcome to my link collection! ✨</p>
+            </div>
+
+            <!-- Links Section -->
+            <div class="space-y-4">
+                {% for link in links %}
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer"
+                       class="link-card block bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl p-4 text-center font-medium hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 group">
+                        <div class="flex items-center justify-center space-x-2">
+                            <span>{{ link.text }}</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                            </svg>
+                        </div>
+                    </a>
+                {% empty %}
+                    <div class="text-center text-gray-500 py-8">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                        </svg>
+                        <p>No links available yet</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Social Proof 
+            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+                <p class="text-xs text-gray-500">Connect with me on social media</p>
+                <div class="flex justify-center space-x-4 mt-3">
+                     Add social media icons here if needed 
+                </div>
+            </div>-->
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-8 text-center">
+            <div class="flex items-center justify-center space-x-2 text-white text-sm">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path>
+                </svg>
+                <span>Made with LinCon</span>
+            </div>
+            <p class="text-white text-xs mt-2 opacity-75">© {{ now|date:"Y" }} LinCon. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+    <!-- Floating Animation Elements -->
+    <div class="absolute top-10 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full animate-pulse"></div>
+    <div class="absolute bottom-20 right-10 w-16 h-16 bg-white bg-opacity-10 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 left-5 w-12 h-12 bg-white bg-opacity-10 rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+
+</body>
+</html>

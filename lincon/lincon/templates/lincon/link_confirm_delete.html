@@ -1,0 +1,24 @@
+{% extends 'lincon\_base.html' %}
+{% block content %}
+<div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md
+            mx-auto text-center">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6">Delete Link</h2>
+    <p class="mb-6 text-gray-600">Are you sure you want to delete the link "<strong>{{ object.text }}</strong>"?</p>
+    <ul>
+        <li class="text-sm text-gray-500 mb-1"><strong>URL:</strong> {{ object.url }}</li>
+        <li class="text-sm text-gray-500"><strong>Profile:</strong> {{ object.profile.name }} (@{{ object.profile.slug }})</li>
+    </ul>
+    <hr class="my-6"> 
+    <form method="post">
+        {% csrf_token %}
+        <div class="flex justify-center space-x-4">
+            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow transition">
+                Yes, Delete
+            </button>
+            <a href="{% url 'link-list' object.profile.slug %}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg shadow transition">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
