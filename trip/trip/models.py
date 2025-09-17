@@ -36,4 +36,4 @@ class Note(models.Model):
     rating = models.PositiveSmallIntegerField(default=1, validators=[MaxValueValidator(5)])
 
     def __str__(self):
-        return f"{self.name} - Note for {self.trip.city} on {self.created_at.strftime('%Y-%m-%d')}"
+        return f"{self.name} - Note for {self.trip.city} on {self.trip.start_date} to {self.trip.end_date}"

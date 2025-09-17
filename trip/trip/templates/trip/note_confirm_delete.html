@@ -1,0 +1,27 @@
+{% extends 'trip/_base.html' %}
+
+<!--this is a confirm delete note UI-->
+{% block content %}
+    <div class="min-h-screen bg-gradient-to-br from-red-100 via-white to-pink-100 flex flex-col items-center justify-center py-12 px-4">
+        <div class="max-w-lg w-full bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-pink-600 mb-4 text-center">
+                Confirm Deletion
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 text-center">
+                Are you sure you want to delete the note <span class="font-semibold">{{ object.name }}</span>? This action cannot be undone.
+            </p>
+            <form method="post" class="w-full">
+                {% csrf_token %}
+                <div class="flex justify-center space-x-4">
+                    
+                    <button  type="submit" class="px-8 py-3 bg-red-500 text-white font-semibold rounded-full shadow-lg hover:bg-red-600 transition duration-200">
+                        Yes, Delete
+                    </button>
+                    <a href="{% url 'trip-detail' object.trip.id %}" class="px-8 py-3 bg-gray-300 text-gray-800 font-semibold rounded-full shadow-lg hover:bg-gray-400 transition duration-200">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
