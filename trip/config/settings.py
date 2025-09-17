@@ -39,9 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #installed apps
+    'crispy_forms',
+    'crispy_tailwind',
+
     #local apps
     'trip',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,7 +66,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,3 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/' #mysite.com/media/img-1
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') #documents/images/file.png
+
+#where shouls user user be redirected after login
+LOGIN_REDIRECT_URL = 'trip-list'
+
+#where should user be redirected after logout
+LOGOUT_REDIRECT_URL = 'home'

@@ -1,0 +1,34 @@
+{% extends 'trip/_base.html' %}
+
+{% load tailwind_filters %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+    <p class="text-red-500">Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if not user.is_authenticated %}
+        <p class="text-red-500">Please login to continue view that page:</p>
+    {% else %}
+        <p class="text-green-500">You have been logged out. Please login again to continue:</p>
+    {% endif %}
+    
+{% endif %}
+
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p  }}
+
+    <input type="submit" value="Login">
+
+    <input type="hidden" name="next" value="{{ next }}"/>
+</form>
+<p> Don't have an account? <a href="{% url 'signup' %}"> Sign Up </a> </p>
+{% endblock %}
+   
+    
