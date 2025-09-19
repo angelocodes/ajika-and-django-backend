@@ -56,4 +56,9 @@ def item_detail(request, pk):
     item = Item.objects.get(id=pk)
     serializer = ItemSerializer(item)
     return Response(serializer.data)
-    
+
+
+#display items in a simple html page not using api
+def menu_ui(request):
+    items = Item.objects.all()
+    return render(request, 'menu/menu_ui.html', {'items': items})
