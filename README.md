@@ -5,9 +5,9 @@ A collection of Django backend projects showcasing various web application funct
 ## Projects
 
 ### 🥗 Restaurant API
-A REST API for managing restaurant menu items with CRUD operations.
+A REST API for managing restaurant menu items.
 - **Tech Stack**: Django, Django REST Framework
-- **Features**: Menu item management, API endpoints
+- **Features**: Menu item management (basic item retrieval using api_view), API endpoints
 - **Location**: `restaurant_api/`
 
 ### 💼 Job Board
